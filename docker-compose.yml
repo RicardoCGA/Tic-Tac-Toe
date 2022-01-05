@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  postgres:
+    container_name: ${DATABASE_CONTAINER_NAME}
+    image: postgres
+    environment:
+      # Note,these vars are set in volume/data intialization.
+      # If you want to change these values, you will need to
+      # remove the volume for this service.
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports: 
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    volumes:
+      - tic-tac-toe-db:/var/lib/postgresql/data
+
+  tic-tac-toe-service:
+    container_name: tic-tac-toe-service
+    build:
+      context: .
+    environment:
+      TYPEORM_CONNECTION: postgres
+      TYPEORM_HOST: ${DATABASE_CONTAINER_NAME}
+      TYPEORM_USERNAME: ${POSTGRES_USER}
+      TYPEORM_PASSWORD: ${POSTGRES_PASSWORD}
+      TYPEORM_DATABASE: ${POSTGRES_DB}
+      TYPEORM_PORT: ${DATABASE_PORT}
+      TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+      TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+      TYPEORM_ENTITIES: ${TYPEORM_ENTITIES}
+      NPM_TREEZ_TOKEN: ${NPM_TREEZ_TOKEN}
+      SERVER_PORT: ${SERVER_PORT}
+    depends_on:
+      - postgres
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+        
+volumes:
+  tic-tac-toe-db:
