@@ -17,7 +17,7 @@ Like mentioned above, try to spend no more than 4 hours on this take home. We ar
   ```json
   {
     "player_1": "",
-    "player_2": "",
+    "player_2": ""
   }
   ```
 - Response
@@ -33,7 +33,7 @@ Like mentioned above, try to spend no more than 4 hours on this take home. We ar
         "game_id": "",
         "players": [],
         "outcome": "ACTIVE/GAME_OVER",
-        "winner": [],
+        "winner": []
       }
       ```
     - 400 - If no game exists for gameId
@@ -55,3 +55,4 @@ Like mentioned above, try to spend no more than 4 hours on this take home. We ar
 ### Running the project
 - Just execute npm install
 - Then npm start
+- Enjoy
